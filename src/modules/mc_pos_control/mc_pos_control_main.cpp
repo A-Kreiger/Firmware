@@ -3080,7 +3080,7 @@ MulticopterPositionControl::task_main()
 
 		/* set default max velocity in xy to vel_max
 		 * Apply estimator limits if applicable */
-		if (PX4_ISFINITE(_local_pos.vxy_max)) {
+		if (_local_pos.vxy_max > 0.0f) {
 			_vel_max_xy = fminf(_params.vel_max_xy, _local_pos.vxy_max);
 			// Allow for a minimum of 0.3 m/s for repositioning
 			_vel_max_xy = fmaxf(_vel_max_xy, 0.3f);
