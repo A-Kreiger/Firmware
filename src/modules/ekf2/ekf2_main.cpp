@@ -995,6 +995,11 @@ void Ekf2::run()
 			// get control limit information
 			_ekf.get_ekf_ctrl_limits(&lpos.vxy_max, &lpos.limit_hagl);
 
+			// convert NaN to zero
+			if (!PX4_ISFINITE(lpos.vxy_max)) {
+				lpos.vxy_max = 0.0f;
+			}
+
 			// publish vehicle local position data
 			_vehicle_local_position_pub.update();
 
